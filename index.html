@@ -1,1 +1,73 @@
-<!DOCTYPE.html>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stacoffee - Coffee • Eatery • Gamestation</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-coffee"></i>
+                <span>Stacoffee</span>
+            </div>
+            <div class="nav-links" id="nav-links">
+                <a href="#home">Home</a>
+                <a href="#menu">Menu</a>
+                <a href="#cart">Cart (<span id="cart-count">0</span>)</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Stacoffee</h1>
+            <p>Coffee • Eatery • Gamestation</p>
+            <a href="#menu" class="cta-btn">Lihat Menu</a>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="menu-section">
+        <h2>Our Menu</h2>
+        <div class="menu-grid" id="menu-grid">
+            <!-- Menu items loaded by JS -->
+        </div>
+    </section>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Keranjang Belanja</h3>
+            <div id="cart-items"></div>
+            <div class="cart-total">
+                <h4>Total: Rp <span id="cart-total">0</span></h4>
+                <button id="checkout-btn" class="checkout-btn">Bayar via QRIS</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="payment-modal" class="modal">
+        <div class="modal-content payment-modal">
+            <span class="close">&times;</span>
+            <h3>Scan QRIS untuk Bayar</h3>
+            <div class="qr-container">
+                <img id="qr-image" src="" alt="QRIS">
+                <p id="qr-amount"></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
