@@ -21,16 +21,17 @@ body {
 
 /* Navbar */
 #navbar {
-    position: fixed; top: 0; width: 100%; 
+    position: fixed; top: 0; width: 100%; left: 0; right: 0;
     background: rgba(255,255,255,0.95);
     backdrop-filter: blur(20px);
-    z-index: 1000;
+    z-index: 9999;
     box-shadow: var(--shadow);
+    border-bottom: 4px solid var(--army-green-dark);
 }
 .nav-container {
     max-width: 1200px; margin: 0 auto;
-    padding: 1rem 2rem; display: flex;
-    justify-content: space-between; align-items: center;
+    padding: 1.4rem 7%; display: flex;
+    justify-content: space-between; align-items: center; 
 }
 .logo {
     display: flex; align-items: center;
@@ -45,7 +46,22 @@ body {
     color: var(--army-green-dark); text-decoration: none;
     font-weight: 500; transition: all 0.3s;
 }
+
 .nav-links a:hover { color: var(--kreme); }
+
+.navbar .nav-links a::after {
+  content: '';
+  display: block;
+  padding-bottom: 0.5rem;
+  border-bottom: 0.1rem solid var(--army-green);
+  transform: scaleX(0);
+  transition: 0.2s linear;
+}
+
+.navbar .nav-links a:hover::after {
+  transform: scaleX(0.5);
+}
+
 .hamburger {
     display: none; flex-direction: column; cursor: pointer;
 }
