@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Kasir - Stacoffee</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="dashboard-body">
+
+    <div class="dashboard-container">
+        <div class="sidebar" id="sidebar-nav">
+            <div class="logo" style="margin-bottom: 1rem;">
+                <i class="fas fa-coffee"></i> <span>Stacoffee POS</span>
+            </div>
+            <p style="font-size: 0.8rem; color: #aaa; margin-bottom: 2rem;">Welcome, Admin</p>
+            
+            <a href="#" class="active"><i class="fas fa-home"></i> Overview</a>
+            <a href="#"><i class="fas fa-receipt"></i> Orders</a>
+            <a href="#"><i class="fas fa-box"></i> Inventory</a>
+            <a href="#"><i class="fas fa-cog"></i> Settings</a>
+            <a href="#" id="logout-btn" style="color: #ff6b6b; margin-top: 3rem;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            
+            <div id="close-sidebar" class="mobile-only close-btn">&times;</div>
+        </div>
+
+        <div class="main-content">
+            <div class="mobile-header">
+                <button id="sidebar-toggle"><i class="fas fa-bars"></i></button>
+                <h2>Dashboard</h2>
+            </div>
+
+            <h2 class="desktop-title" style="color: var(--army-green-dark); margin-bottom: 1.5rem;">Overview</h2>
+
+            <div class="stat-cards">
+                <div class="stat-card">
+                    <div>
+                        <p>Total Penjualan</p>
+                        <h3>Rp 2.5jt</h3>
+                    </div>
+                    <i class="fas fa-wallet fa-2x" style="color: #ddd;"></i>
+                </div>
+                <div class="stat-card">
+                    <div>
+                        <p>Order Hari Ini</p>
+                        <h3>142</h3>
+                    </div>
+                    <i class="fas fa-shopping-bag fa-2x" style="color: #ddd;"></i>
+                </div>
+                <div class="stat-card">
+                    <div>
+                        <p>Menu Aktif</p>
+                        <h3>6</h3>
+                    </div>
+                    <i class="fas fa-coffee fa-2x" style="color: #ddd;"></i>
+                </div>
+            </div>
+
+            <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: var(--shadow); margin-top: 2rem;">
+                <h3 style="margin-bottom: 1rem;">Order Terbaru</h3>
+                
+                <div class="table-responsive">
+                    <table class="dashboard-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Customer</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#ORD-001</td>
+                                <td>Meja 4</td>
+                                <td>Rp 75.000</td>
+                                <td><span class="badge success">Selesai</span></td>
+                            </tr>
+                            <tr>
+                                <td>#ORD-002</td>
+                                <td>Meja 2</td>
+                                <td>Rp 35.000</td>
+                                <td><span class="badge warning">Diproses</span></td>
+                            </tr>
+                             <tr>
+                                <td>#ORD-003</td>
+                                <td>Takeaway</td>
+                                <td>Rp 150.000</td>
+                                <td><span class="badge warning">Diproses</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="overlay" class="overlay"></div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

@@ -72,13 +72,17 @@ function setupEventListeners() {
     });
 
     document.querySelectorAll('a[href="#cart"]').forEach(function(link) {
-        link.addEventListener('click', function() { cartModal.style.display = 'block'; });
+        link.addEventListener('click', function() { cartModal.style.display = 'block';
+        document.getElementById('nav-links').classList.remove('show');
+        });
+      
     });
 
     document.querySelectorAll('.close').forEach(function(close) {
         close.addEventListener('click', function() {
             cartModal.style.display = 'none';
             paymentModal.style.display = 'none';
+            loginModal.style.display = 'none';
         });
     });
 
@@ -106,3 +110,49 @@ function checkout() {
     cart = [];
     updateCartDisplay();
 }
+
+// 1. Setup Login Modal
+const loginModal = document.getElementById('login-modal');
+const loginLink = document.getElementById('login-link');
+const loginForm = document.getElementById('login-form');
+const loginError = document.getElementById('login-error');
+
+// Event Buka Modal Login
+loginLink.addEventListener('click', function(e) {
+    e.preventDefault();
+    loginModal.style.display = 'block';
+    // Tutup navbar mobile jika sedang terbuka
+    document.getElementById('nav-links').classList.remove('show');
+});
+
+// Logic Login Sederhana
+loginForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const user = document.getElementById('username').value;
+    const pass = document.getElementById('password').value;
+
+    // HARDCODE CREDENTIALS (Untuk demo)
+    if (user === 'admin' && pass === '12345') {
+        // Simpan sesi login
+        localStorage.setItem('role', 'cashier');
+        localStorage.setItem('user', 'Stacoffee Admin');
+        
+        // Redirect ke dashboard
+        alert('Login Berhasil! Mengalihkan ke Dashboard kasir...');
+        window.location.href = 'dashboard.html';
+    } else {
+        loginError.style.display = 'block';
+        // Shake animation effect
+        loginForm.classList.add('shake');
+        setTimeout(() => loginForm.classList.remove('shake'), 500);
+    }
+});
+
+// Modifikasi window click event untuk menutup login modal juga
+window.addEventListener('click', function(e) {
+    if (e.target.classList.contains('modal')) {
+        cartModal.style.display = 'none';
+        paymentModal.style.display = 'none';
+        loginModal.style.display = 'none'; // Tambahan
+    }
+});

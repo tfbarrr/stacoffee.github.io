@@ -177,4 +177,238 @@ body {
     .nav-links.show { left: 0; }
     .menu-section { padding: 3rem 1rem; }
     .menu-section h2 { font-size: 2rem; }
+    
+    /* --- CSS LOGIN --- */
+.login-modal-content {
+    max-width: 400px;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--army-green-dark);
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+.form-group input:focus {
+    border-color: var(--army-green);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(74, 112, 67, 0.1);
+}
+
+/* Dashboard Sidebar Style (Persiapan untuk dashboard.html) */
+.dashboard-body {
+    background: #f4f4f4;
+    padding-top: 0; /* Override hero padding */
+}
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+.sidebar {
+    width: 250px;
+    background: var(--army-green-dark);
+    color: white;
+    padding: 2rem;
+    position: fixed;
+    height: 100%;
+}
+.sidebar h2 { margin-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 1rem; }
+.sidebar a {
+    display: block; color: #ccc; text-decoration: none;
+    padding: 1rem 0; font-size: 1.1rem; transition: 0.3s;
+}
+.sidebar a:hover, .sidebar a.active { color: var(--kreme); padding-left: 10px; }
+.main-content {
+    margin-left: 250px;
+    padding: 2rem;
+    width: calc(100% - 250px);
+}
+.stat-cards {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem;
+}
+.stat-card {
+    background: white; padding: 1.5rem; border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center;
+}
+.stat-card h3 { font-size: 2rem; color: var(--army-green); }
+
+/* =========================================
+   DASHBOARD STYLING & RESPONSIVE
+   ========================================= */
+
+/* Base Dashboard Layout */
+.dashboard-body {
+    background: #f0f2f5;
+    overflow-x: hidden;
+}
+
+.dashboard-container {
+    display: flex;
+    width: 100%;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 260px;
+    background: var(--army-green-dark);
+    color: white;
+    padding: 2rem;
+    position: fixed;
+    height: 100vh;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    left: 0;
+}
+
+.sidebar a {
+    color: rgba(255,255,255,0.7);
+    padding: 12px 15px;
+    margin-bottom: 5px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sidebar a:hover, .sidebar a.active {
+    background: rgba(255,255,255,0.1);
+    color: var(--kreme);
+    padding-left: 20px;
+}
+
+/* Main Content Styling */
+.main-content {
+    margin-left: 260px; /* Lebar Sidebar */
+    padding: 2rem;
+    width: calc(100% - 260px);
+    transition: all 0.3s ease;
+}
+
+/* Header Mobile (Default Hidden) */
+.mobile-header {
+    display: none;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+#sidebar-toggle {
+    background: none; border: none; font-size: 1.5rem;
+    color: var(--army-green-dark); cursor: pointer;
+}
+
+.mobile-only { display: none; }
+
+/* Cards Grid */
+.stat-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); /* Flexible Grid */
+    gap: 1.5rem;
+}
+
+.stat-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Table Styling */
+.table-responsive {
+    overflow-x: auto; /* Scroll samping jika layar sempit */
+}
+
+.dashboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px; /* Paksa lebar min agar tidak gepeng di HP */
+}
+
+.dashboard-table th, .dashboard-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.dashboard-table th {
+    background: #fafafa;
+    color: #666;
+    font-weight: 600;
+}
+
+.badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+.badge.success { background: #e1f7d5; color: #2e7d32; }
+.badge.warning { background: #fff3cd; color: #f57c00; }
+
+/* Overlay Background */
+.overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5); z-index: 900;
+    display: none; opacity: 0; transition: 0.3s;
+}
+.overlay.active { display: block; opacity: 1; }
+
+
+/* =========================================
+   MEDIA QUERIES (RESPONSIVE RULES)
+   ========================================= */
+
+@media (max-width: 768px) {
+    /* Tablet & Mobile */
+    
+    .sidebar {
+        left: -280px; /* Sembunyikan Sidebar ke kiri */
+    }
+    
+    .sidebar.active {
+        left: 0; /* Munculkan Sidebar */
+        box-shadow: 5px 0 15px rgba(0,0,0,0.2);
+    }
+    
+    .main-content {
+        margin-left: 0; /* Konten jadi full width */
+        width: 100%;
+    }
+
+    .mobile-header { display: flex; } /* Munculkan tombol menu */
+    .desktop-title { display: none; }
+    
+    .mobile-only { display: block; }
+    
+    /* Tombol close di dalam sidebar */
+    .close-btn {
+        position: absolute; top: 1rem; right: 1rem;
+        font-size: 1.5rem; cursor: pointer; color: white;
+    }
+}
+
+@media (max-width: 480px) {
+    /* HP Kecil */
+    .stat-cards { grid-template-columns: 1fr; } /* Stack kartu ke bawah */
+    .main-content { padding: 1rem; }
+}
+
 }
