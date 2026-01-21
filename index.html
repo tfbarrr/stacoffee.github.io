@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stacoffee - Digital Menu</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-coffee"></i>
+                <span>Stacoffee</span>
+            </div>
+            <div class="nav-links" id="nav-links">
+                <a href="#home">Home</a>
+                <a href="#menu-container">Menu</a>
+                <a href="#" onclick="document.getElementById('cart-modal').style.display='block'">Cart</a>
+                <a href="#" id="login-link-nav">Staff Log-in</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-banner" id="home">
+        <div class="banner-content">
+            <h1>Stacoffee</h1>
+            <p>Coffee • Eatery • Gamestation</p>
+            <div class="rating"><i class="fas fa-star"></i> 4.8 (1k+)</div>
+        </div>
+    </header>
+
+    <nav id="category-nav" class="category-nav">
+        </nav>
+
+    <main class="menu-container" id="menu-container">
+        </main>
+
+    <div id="floating-cart" class="floating-cart" style="display: none;">
+        <div class="cart-info">
+            <i class="fas fa-shopping-basket"></i>
+            <div>
+                <span id="cart-count">0</span> Item
+                <div id="cart-total-preview" class="total-preview">Rp 0</div>
+            </div>
+        </div>
+        <div class="cart-action">Lihat Keranjang</div>
+    </div>
+
+    <div id="options-modal" class="modal bottom-sheet">
+        <div class="modal-content options-content">
+            <span class="close-modal" onclick="closeModal('options-modal')">&times;</span>
+            <div id="options-details"></div>
+            <form id="options-form"></form>
+            <div class="modal-footer">
+                <button id="add-to-cart-final" class="cta-btn full-width">Tambah Pesanan</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="cart-modal" class="modal bottom-sheet">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('cart-modal')">&times;</span>
+            <h3>Pesanan Anda</h3>
+            <div id="cart-items-list" class="cart-list" style="margin-top: 15px;"></div>
+            <div class="cart-summary" style="margin-top: 20px; font-weight: bold; font-size: 1.2rem;">
+                <div class="row"><span>Total: </span><span id="final-total">Rp 0</span></div>
+            </div>
+            <button id="btn-order-table" class="cta-btn full-width">Pesan Sekarang</button>
+        </div>
+    </div>
+
+    <div id="table-modal" class="modal">
+        <div class="modal-content center-modal">
+            <span class="close-modal" onclick="closeModal('table-modal')">&times;</span>
+            <div style="text-align: center;">
+                <i class="fas fa-utensils" style="font-size: 3rem; color: var(--army-green);"></i>
+                <h3 style="margin-top: 10px;">Informasi Meja</h3>
+                <p>Masukkan nomor meja Anda.</p>
+            </div>
+            <div class="form-group" style="margin-top: 20px;">
+                <label>Nomor Meja</label>
+                <input type="number" id="table-number" placeholder="Contoh: 12" class="input-std" style="text-align: center; font-size: 1.2rem;">
+            </div>
+            <div class="form-group">
+                <label>Nama Pemesan</label>
+                <input type="text" id="customer-name" placeholder="Nama Anda" class="input-std">
+            </div>
+            <button id="confirm-order-btn" class="cta-btn full-width">Kirim ke Dapur</button>
+        </div>
+    </div>
+
+    <a href="#" id="staff-login-trigger" style="text-align: center; display: block; margin: 30px; color: #999; text-decoration: none; font-size: 0.8rem;">Staff Login Access</a>
+
+    <div id="login-modal" class="modal">
+        <div class="modal-content center-modal">
+            <span class="close-modal" onclick="closeModal('login-modal')">&times;</span>
+            <h3 style="text-align: center; margin-bottom: 20px;">Staff Access</h3>
+            <form id="login-form">
+                <input type="text" id="username" placeholder="Username" required class="input-std">
+                <input type="password" id="password" placeholder="Password" required class="input-std">
+                <button type="submit" class="cta-btn full-width">Login Dashboard</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

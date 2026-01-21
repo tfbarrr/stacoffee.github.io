@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Stacoffee</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css"> 
+    <style>
+        /* --- DASHBOARD SPECIFIC STYLES --- */
+        body { background: #f4f6f9; padding-bottom: 0; overflow-x: hidden; }
+        
+        /* Layout Container */
+        .dashboard-container { 
+            display: flex; 
+            min-height: 100vh; 
+            position: relative; 
+            transition: 0.3s;
+        }
+        
+        /* 1. SIDEBAR (Desktop Default) */
+        .sidebar {
+            width: 260px; 
+            background: var(--army-green-dark); 
+            color: white;
+            padding: 20px; 
+            display: flex; 
+            flex-direction: column;
+            position: fixed; /* Fixed agar tidak ikut scroll */
+            top: 0; left: 0; bottom: 0;
+            z-index: 1000;
+            transition: transform 0.3s ease-in-out;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .sidebar-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 30px; padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .sidebar h2 { font-size: 1.4rem; display: flex; align-items: center; gap: 10px; margin: 0; }
+        
+        /* Tombol Close di Sidebar (Hanya untuk Mobile) */
+        .close-sidebar-btn { display: none; cursor: pointer; font-size: 1.2rem; }
+
+        .menu-link {
+            color: rgba(255,255,255,0.8); text-decoration: none; padding: 12px 15px;
+            margin-bottom: 8px; border-radius: 8px; transition: 0.3s; display: flex; align-items: center; gap: 10px;
+        }
+        .menu-link:hover, .menu-link.active { 
+            background: rgba(255,255,255,0.15); 
+            color: var(--kreme); 
+            transform: translateX(5px);
+        }
+        .logout-btn { margin-top: auto; background: #c0392b; justify-content: center; }
+        .logout-btn:hover { background: #a93226; transform: none; }
+
+        /* 2. MAIN CONTENT */
+        .main-content { 
+            flex: 1; 
+            padding: 30px; 
+            margin-left: 260px; /* Memberi ruang untuk sidebar */
+            width: calc(100% - 260px);
+            transition: 0.3s;
+        }
+
+        .header-dash { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 20px; 
+        }
+
+        /* Tombol Toggle Sidebar (Muncul di Mobile) */
+        #sidebar-toggle {
+            display: none; /* Hidden di Desktop */
+            background: none; border: none; font-size: 1.5rem; 
+            color: var(--army-green-dark); cursor: pointer;
+            margin-right: 15px;
+        }
+
+        /* 3. TABLE RESPONSIVE */
+        .table-container { 
+            background: white; 
+            padding: 20px; 
+            border-radius: 12px; 
+            box-shadow: var(--shadow);
+            /* Agar tabel bisa di-scroll horizontal di HP */
+            overflow-x: auto; 
+        }
+        
+        table { width: 100%; border-collapse: collapse; min-width: 600px; /* Paksa lebar min agar tidak gepeng */ }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #eee; white-space: nowrap; }
+        th { background-color: var(--cream-light); color: var(--army-green-dark); font-weight: bold; }
+        
+        .btn-action {
+            background: var(--army-green); color: white; border: none;
+            padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 0.9rem;
+            display: inline-flex; align-items: center; gap: 5px;
+        }
+
+        /* Overlay Gelap untuk Mobile */
+        .overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 900;
+            display: none; /* Hidden default */
+            backdrop-filter: blur(2px);
+        }
+        .overlay.active { display: block; }
+
+        /* =========================================
+           RESPONSIVE MEDIA QUERIES (HP / TABLET)
+           ========================================= */
+        @media (max-width: 768px) {
+            /* 1. Sidebar Sembunyi ke Kiri */
+            .sidebar {
+                transform: translateX(-100%); /* Geser keluar layar */
+            }
+            .sidebar.active {
+                transform: translateX(0); /* Munculkan saat class active */
+            }
+            .close-sidebar-btn { display: block; } /* Munculkan tombol X */
+
+            /* 2. Main Content Full Width */
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+                padding: 20px;
+            }
+
+            /* 3. Header Adjustment */
+            .header-dash {
+                justify-content: flex-start; /* Rata kiri biar tombol toggle di depan */
+            }
+            #sidebar-toggle { display: block; } /* Munculkan tombol hamburger */
+            
+            h1 { font-size: 1.5rem; }
+            
+            /* Tombol refresh geser ke kanan */
+            .btn-refresh-wrapper { margin-left: auto; } 
+        }
+    </style>
+</head>
+<body>
+
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<div class="dashboard-container">
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2><i class="fas fa-coffee"></i> Admin</h2>
+            <i class="fas fa-times close-sidebar-btn" onclick="toggleSidebar()"></i>
+        </div>
+        
+        <a href="#" class="menu-link active"><i class="fas fa-list"></i> Pesanan Masuk</a>
+        <a href="#" class="menu-link"><i class="fas fa-chart-line"></i> Laporan</a>
+        <a href="#" class="menu-link"><i class="fas fa-cog"></i> Pengaturan</a>
+        <a href="index.html" class="menu-link logout-btn" onclick="logout()">Logout</a>
+    </div>
+
+    <div class="main-content">
+        <div class="header-dash">
+            <button id="sidebar-toggle" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <h1>Pesanan Masuk</h1>
+            
+            <div class="btn-refresh-wrapper">
+                <button class="btn-action" onclick="refreshData()">
+                    <i class="fas fa-sync"></i> <span style="display:none;" class="desktop-text">Refresh</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID Order</th>
+                        <th>Meja</th>
+                        <th>Pelanggan</th>
+                        <th>Menu & Opsi</th>
+                        <th>Total</th>
+                        <th>Waktu</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="order-table-body">
+                    </tbody>
+            </table>
+            <p id="empty-msg" style="text-align:center; padding: 20px; color:#888; display:none;">Belum ada pesanan masuk.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    // 2. Load Data
+    function loadOrders() {
+        const orders = JSON.parse(localStorage.getItem('cafe_orders')) || [];
+        const tbody = document.getElementById('order-table-body');
+        const emptyMsg = document.getElementById('empty-msg');
+
+        tbody.innerHTML = '';
+
+        if (orders.length === 0) {
+            emptyMsg.style.display = 'block';
+            return;
+        }
+        emptyMsg.style.display = 'none';
+
+        orders.slice().reverse().forEach((order, index) => {
+            let itemsHtml = order.items.map(item => 
+                `<div>- <b>${item.name}</b> <br><small style="color:#666">(${item.selectedOptions.join(', ')})</small></div>`
+            ).join('<br>');
+
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><b>${order.orderId}</b></td>
+                <td style="font-size: 1.2rem; font-weight:bold; color: var(--army-green); text-align:center;">${order.table}</td>
+                <td>${order.customer}</td>
+                <td style="white-space:normal; min-width:200px;">${itemsHtml}</td>
+                <td style="font-weight:bold;">Rp ${order.total.toLocaleString('id-ID')}</td>
+                <td>${order.timestamp}</td>
+                <td>
+                    <button class="btn-action" onclick="selesaiOrder(${index})" style="background:#c0392b;">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    // 3. Fungsi Hapus
+    function selesaiOrder(reversedIndex) {
+        if(confirm('Hapus pesanan ini?')) {
+            let orders = JSON.parse(localStorage.getItem('cafe_orders')) || [];
+            let realIndex = orders.length - 1 - reversedIndex;
+            orders.splice(realIndex, 1);
+            localStorage.setItem('cafe_orders', JSON.stringify(orders));
+            loadOrders();
+        }
+    }
+
+    // 4. Fungsi Responsive Sidebar
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        
+        // Toggle class 'active'
+        sidebar.classList.toggle('active');
+        overlay.classList.toggle('active');
+    }
+
+    function refreshData() { loadOrders(); }
+    function logout() { localStorage.removeItem('isLoggedIn'); }
+
+    // Init
+    loadOrders();
+    
+    // Auto refresh setiap 10 detik agar realtime
+    setInterval(loadOrders, 10000);
+</script>
+
+</body>
+</html>
