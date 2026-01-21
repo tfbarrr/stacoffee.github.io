@@ -178,11 +178,67 @@ const menuData = [
             },
             {
                 id: 305,
-                name: "Spaghetti Bolognese",
-                desc: "Spaghetti with Beef Bolognese Sauce",
+                name: "Staco Burger",
+                desc: "Premium Beef, Patty, Melted Cheese, all heavenly ingredients",
                 price: 32000,
                 img: "https://github.com/tfbarrr/imageshi/blob/main/burger%20premium%20ala%20cart.png",
-                options: [{ name: "Pedas", type: "radio", choices: ["Tidak Pedas", "Sedang", "Pedas"] }]
+                options: [{ name: "Add-On", type: "radio", choices: ["X-Tra Cheese", "No Pickles", "No-Spice"] }]
+            },
+            {
+                id: 306,
+                name: "Chicken Nashville",
+                desc: "Ricebowl with Crispy Chicken and Special Nashville Sauce",
+                price: 20000,
+                img: "https://raw.githubusercontent.com/tfbarrr/imageshi/main/chicken%20nashville.jpg",
+                options: [{ name: "Add-On", type: "radio", choices: ["Cheese Sauce", "Chili Sauce"] }]
+            },
+            {
+                id: 307,
+                name: "Creamy Mushroom",
+                desc: "Ricebowl with Macaroni and Creamy Mushroom Sauce",
+                price: 25000,
+                img: "https://raw.githubusercontent.com/tfbarrr/imageshi/main/creamy%20mushroom.jpg",
+                options: [{ name: "Add-On", type: "radio", choices: ["Extra Cheese", "Hot Sauce"] }]
+            },
+            {
+                id: 308,
+                name: "Mix PLatter",
+                desc: "Heavenly Sausage combos",
+                price: 25000,
+                img: "https://raw.githubusercontent.com/tfbarrr/imageshi/main/mix%20platter.jpg",
+                options: [{ name: "Add-On", type: "radio", choices: ["Extra Cheese", "No Cheese"] }]
+            },
+            {
+                id: 309,
+                name: "French Fries",
+                desc: "Crispy Golden Fries with Ketchup",
+                price: 15000,
+                img: "https://raw.githubusercontent.com/tfbarrr/imageshi/main/french%20fries.jpg",
+                options: [{ name: "Add-On", type: "radio", choices: ["Extra Cheese", "No Cheese"] }]
+            },
+            {
+                id: 310,
+                name: "Nasi Goreng Teri Cabe Ijo",
+                desc: "Fried Rice with Anchovies and Green Chili",
+                price: 19000,
+                img: "https://github.com/tfbarrr/imageshi/blob/main/nasi%20goreng%20teri%20cabe%20ijo.jpg",
+                options: [{ name: "Add-On", type: "radio", choices: ["Extra Cheese", "No Cheese"] }]
+            },
+            {
+                id: 311,
+                name: "Nasi Jukut",
+                desc: "Toasted Chicken with Kremes and Sambal Matah",
+                price: 25000,
+                img: "https://raw.githubusercontent.com/tfbarrr/imageshi/blob/main/nasu%20jukut.jpg",
+                options: [{ name: "Add-On", type: "radio", choices: ["Extra Cheese", "No Cheese"] }]
+            },
+            {
+                id: 312,
+                name: "Pisang Goreng Staco",
+                desc: "Fried Banana with Sugar Powder and Condensed Milk",
+                price: 25000,
+                img: "https://raw.githubusercontent.com/tfbarrr/imageshi/blob/main/pisang%20goreng.jpg",
+                options: [{ name: "Sugar Powder", type: "radio", choices: ["Extra", "Normal"] }]
             }
         ]
     }
