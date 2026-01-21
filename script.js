@@ -5,25 +5,6 @@ const menuData = [
         name: "Coffee",
         items: [
             {
-                id: 101,
-                name: "Kopi Susu Gula Aren",
-                desc: "Espresso, Fresh Milk, Gula Aren Asli",
-                price: 18000,
-                img: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=200",
-                options: [
-                    { name: "Sugar", type: "radio", choices: ["Normal (100%)", "Less (50%)", "No Sugar"] },
-                    { name: "Temp", type: "radio", choices: ["Ice", "Hot"] }
-                ]
-            },
-            {
-                id: 102,
-                name: "Caramel Macchiato",
-                desc: "Vanilla, Espresso, Milk, Caramel Sauce",
-                price: 24000,
-                img: "https://images.unsplash.com/photo-1485808191679-5f8c7c8356f7?w=200",
-                options: [{ name: "Sugar", type: "radio", choices: ["Normal", "Less"] }]
-            },
-            {
                 id: 103,
                 name: "Avocado Coffee",
                 desc: "Fresh Brewed Robusta Coffee with Avocado Syrup",
@@ -148,6 +129,14 @@ const menuData = [
                 price: 24000,
                 img: "https://raw.githubusercontent.com/tfbarrr/imageshi/main/non%20coffee%20series%20botol%20250ml.jpg",
                 options: [{ name: "Sugar", type: "radio", choices: ["Normal", "Less"] }]
+            },
+            {
+                id: 211,
+                name: "",
+                desc: "Fresh Strawberry blended with Energy Drink",
+                price: 24000,
+                img: "https://raw.githubusercontent.com/tfbarrr/imageshi/blob/main/salted%20crumble%20butterscotch.jpg",
+                options: [{ name: "Add-On", type: "radio", choices: ["Choco Drizzle", "Apple Sauce"] }]
             }
         ]
     },
