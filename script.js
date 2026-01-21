@@ -60,7 +60,7 @@ const menuData = [
                 name: "Coffee Series Bottle",
                 desc: "Espresso, Milk, Tiramisu Syrup with Cocoa Powder Topping",
                 price: 28000,
-                img: "https://raw.githubusercontent.com/tfbarrr/imageshi/main/coffee%20series%20botol%20200ml.jpg",
+                img: "https://raw.githubusercontent.com/tfbarrr/imageshi/main/coffee%20sereis%20botol%20200ml.jpg",
                 options: [{ name: "Sugar", type: "radio", choices: ["Normal", "Less"] }]
             }
         ]
@@ -157,10 +157,42 @@ const menuData = [
         items: [
             {
                 id: 301,
-                name: "Nasi Goreng Special",
+                name: "Mie Godok Staco",
                 desc: "Telur, Ayam, Kerupuk, Acar",
                 price: 28000,
-                img: "https://images.unsplash.com/photo-1603133872878-684f57143b33?w=200",
+                img: "https://raw.githubusercontent.com/tfbarrr/imageshi/main/Mie%20godok.jpg",
+                options: [{ name: "Pedas", type: "radio", choices: ["Tidak Pedas", "Sedang", "Pedas"] }]
+            },
+            {
+                id: 302,
+                name: "Chicken Lava Egg Mayo",
+                desc: "Macaroni Cheese, with Chicken Lava Egg Mayo",
+                price: 30000,
+                img: "https://raw.githubusercontent.com/tfbarrr/imageshi/main/_chickem%20lava%20egg%20mayo.jpg",
+                options: [{ name: "Pedas", type: "radio", choices: ["Tidak Pedas", "Sedang", "Pedas"] }]
+            },
+            {
+                id: 303,
+                name: "Rice Bowl Blackpepper",
+                desc: "Telur, Ayam, Sosis, Bakso, Acar",
+                price: 25000,
+                img: "https://raw.githubusercontent.com/tfbarrr/imageshi/main/_rice%20bowl%20blackpepper.jpg",
+                options: [{ name: "Pedas", type: "radio", choices: ["Tidak Pedas", "Sedang", "Pedas"] }]
+            },
+            {
+                id: 304,
+                name: "Chicken Katsu",
+                desc: "Rice, Chicken Katsu, Caulliflower, Saus Tonkatsu",
+                price: 30000,
+                img: "https://raw.githubusercontent.com/tfbarrr/imageshi/main/ayam%20selimut.png",
+                options: [{ name: "Pedas", type: "radio", choices: ["Tidak Pedas", "Sedang", "Pedas"] }]
+            },
+            {
+                id: 305,
+                name: "Spaghetti Bolognese",
+                desc: "Spaghetti with Beef Bolognese Sauce",
+                price: 32000,
+                img: "https://github.com/tfbarrr/imageshi/blob/main/burger%20premium%20ala%20cart.png",
                 options: [{ name: "Pedas", type: "radio", choices: ["Tidak Pedas", "Sedang", "Pedas"] }]
             }
         ]
