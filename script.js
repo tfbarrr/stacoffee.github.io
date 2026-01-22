@@ -244,8 +244,8 @@ const menuData = [
     }
 ];
 
-// API Configuration
-const API_BASE_URL = 'http://localhost:2502/api';
+// API Configuration - Use the current server origin automatically
+const API_BASE_URL = `${window.location.origin}/api`;
 
 let cart = [];
 let currentSelectedProduct = null;
