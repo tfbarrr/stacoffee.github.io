@@ -1,5 +1,14 @@
+
 {
+  "name": "staco-backend",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
   "dependencies": {
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "express": "^4.19.2",
+    "cors": "^2.8.5"
   }
 }
