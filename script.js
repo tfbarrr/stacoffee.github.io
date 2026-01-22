@@ -116,7 +116,7 @@ const menuData = [
             },
             {
                 id: 209,
-                name: "",
+                name: "Banagato",
                 desc: "Fresh Strawberry blended with Yakult",
                 price: 25000,
                 img: "https://raw.githubusercontent.com/tfbarrr/imageshi/main/banagato.jpg",
@@ -124,7 +124,7 @@ const menuData = [
             },
             {
                 id: 210,
-                name: "Strawberry Boost",
+                name: "Non-coffee Series Bottle 250ml",
                 desc: "Fresh Strawberry blended with Energy Drink",
                 price: 24000,
                 img: "https://raw.githubusercontent.com/tfbarrr/imageshi/main/non%20coffee%20series%20botol%20250ml.jpg",
@@ -132,10 +132,10 @@ const menuData = [
             },
             {
                 id: 211,
-                name: "",
+                name: "Salted Crumble Butterscotch",
                 desc: "Fresh Strawberry blended with Energy Drink",
                 price: 24000,
-                img: "https://raw.githubusercontent.com/tfbarrr/imageshi/blob/main/salted%20crumble%20butterscotch.jpg",
+                img: "https://raw.githubusercontent.com/tfbarrr/imageshi/main/salted%20crumble%20butterscotch.jpg",
                 options: [{ name: "Add-On", type: "radio", choices: ["Choco Drizzle", "Apple Sauce"] }]
             }
         ]
