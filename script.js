@@ -181,7 +181,7 @@ const menuData = [
                 name: "Staco Burger",
                 desc: "Premium Beef, Patty, Melted Cheese, all heavenly ingredients",
                 price: 32000,
-                img: "https://github.com/tfbarrr/imageshi/blob/main/burger%20premium%20ala%20cart.png",
+                img: "https://raw.githubusercontent.com/tfbarrr/imageshi/main/burger%20premium%20ala%20cart.png",
                 options: [{ name: "Add-On", type: "radio", choices: ["X-Tra Cheese", "No Pickles", "No-Spice"] }]
             },
             {
@@ -210,10 +210,10 @@ const menuData = [
             },
             {
                 id: 309,
-                name: "French Fries",
+                name: "Roti Panggang",
                 desc: "Crispy Golden Fries with Ketchup",
                 price: 15000,
-                img: "https://raw.githubusercontent.com/tfbarrr/imageshi/main/french%20fries.jpg",
+                img: "https://raw.githubusercontent.com/tfbarrr/imageshi/main/roti%20panggang.jpg",
                 options: [{ name: "Add-On", type: "radio", choices: ["Extra Cheese", "No Cheese"] }]
             },
             {
@@ -221,7 +221,7 @@ const menuData = [
                 name: "Nasi Goreng Teri Cabe Ijo",
                 desc: "Fried Rice with Anchovies and Green Chili",
                 price: 19000,
-                img: "https://github.com/tfbarrr/imageshi/blob/main/nasi%20goreng%20teri%20cabe%20ijo.jpg",
+                img: "https://raw.githubusercontent.com/tfbarrr/imageshi/main/nasi%20goreng%20teri%20cabe%20ijo.jpg",
                 options: [{ name: "Add-On", type: "radio", choices: ["Extra Cheese", "No Cheese"] }]
             },
             {
@@ -229,7 +229,7 @@ const menuData = [
                 name: "Nasi Jukut",
                 desc: "Toasted Chicken with Kremes and Sambal Matah",
                 price: 25000,
-                img: "https://raw.githubusercontent.com/tfbarrr/imageshi/blob/main/nasu%20jukut.jpg",
+                img: "https://raw.githubusercontent.com/tfbarrr/imageshi/main/nasu%20jukut.jpg",
                 options: [{ name: "Add-On", type: "radio", choices: ["Extra Cheese", "No Cheese"] }]
             },
             {
@@ -237,7 +237,7 @@ const menuData = [
                 name: "Pisang Goreng Staco",
                 desc: "Fried Banana with Sugar Powder and Condensed Milk",
                 price: 25000,
-                img: "https://raw.githubusercontent.com/tfbarrr/imageshi/blob/main/pisang%20goreng.jpg",
+                img: "https://raw.githubusercontent.com/tfbarrr/imageshi/main/pisang%20goreng.jpg",
                 options: [{ name: "Sugar Powder", type: "radio", choices: ["Extra", "Normal"] }]
             }
         ]
