@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const fs = require('fs');
+const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 
 const app = express();
@@ -19,46 +19,57 @@ app.get('/', (req, res) => {
 
 // --- [BATAS BAGIAN BARU] ---
 
-
-// Simulated database file (you can replace with a real database later)
-const ORDERS_FILE = path.join(__dirname, 'orders.json');
+// Initialize SQLite database
+const DB_FILE = path.join(__dirname, 'orders.db');
+const db = new sqlite3.Database(DB_FILE, (err) => {
+    if (err) {
+        console.error('Error opening database:', err);
+    } else {
+        console.log('Connected to SQLite database');
+        initializeDatabase();
+    }
+});
 
 /**
- * Load orders from JSON file or return empty list
+ * Initialize database table if it doesn't exist
  */
-function loadOrdersFromStorage() {
-    try {
-        if (fs.existsSync(ORDERS_FILE)) {
-            const data = fs.readFileSync(ORDERS_FILE, 'utf8');
-            return JSON.parse(data);
+function initializeDatabase() {
+    db.run(`
+        CREATE TABLE IF NOT EXISTS orders (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            email TEXT NOT NULL,
+            phone TEXT NOT NULL,
+            quantity INTEGER NOT NULL,
+            notes TEXT,
+            createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+            updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
+        )
+    `, (err) => {
+        if (err) {
+            console.error('Error creating table:', err);
+        } else {
+            console.log('Orders table ready');
         }
-        return [];
-    } catch (error) {
-        console.error('Error loading orders:', error);
-        return [];
-    }
-}
-
-/**
- * Save orders to JSON file
- */
-function saveOrdersToStorage(orders) {
-    try {
-        fs.writeFileSync(ORDERS_FILE, JSON.stringify(orders, null, 2), 'utf8');
-    } catch (error) {
-        console.error('Error saving orders:', error);
-    }
+    });
 }
 
 /**
  * GET /api/orders - Fetch all orders
  */
 app.get('/api/orders', (req, res) => {
-    const orders = loadOrdersFromStorage();
-    res.json({
-        success: true,
-        orders: orders,
-        count: orders.length
+    db.all('SELECT * FROM orders ORDER BY createdAt DESC', [], (err, rows) => {
+        if (err) {
+            return res.status(500).json({
+                success: false,
+                message: err.message
+            });
+        }
+        res.json({
+            success: true,
+            orders: rows || [],
+            count: (rows || []).length
+        });
     });
 });
 
@@ -67,18 +78,38 @@ app.get('/api/orders', (req, res) => {
  */
 app.post('/api/orders', (req, res) => {
     try {
-        const data = req.body;
-        const orders = loadOrdersFromStorage();
+        const { name, email, phone, quantity, notes } = req.body;
         
-        // Add order to list
-        orders.push(data);
-        saveOrdersToStorage(orders);
+        // Validate required fields
+        if (!name || !email || !phone || !quantity) {
+            return res.status(400).json({
+                success: false,
+                message: 'Missing required fields'
+            });
+        }
         
-        res.status(201).json({
-            success: true,
-            message: 'Order added successfully',
-            orders: orders
-        });
+        db.run(
+            'INSERT INTO orders (name, email, phone, quantity, notes) VALUES (?, ?, ?, ?, ?)',
+            [name, email, phone, quantity, notes || ''],
+            function(err) {
+                if (err) {
+                    return res.status(500).json({
+                        success: false,
+                        message: err.message
+                    });
+                }
+                
+                // Fetch all orders to return
+                db.all('SELECT * FROM orders ORDER BY createdAt DESC', [], (err, rows) => {
+                    res.status(201).json({
+                        success: true,
+                        message: 'Order added successfully',
+                        orderId: this.lastID,
+                        orders: rows || []
+                    });
+                });
+            }
+        );
     } catch (error) {
         res.status(400).json({
             success: false,
@@ -88,27 +119,35 @@ app.post('/api/orders', (req, res) => {
 });
 
 /**
- * DELETE /api/orders/:orderId - Delete an order by index
+ * DELETE /api/orders/:orderId - Delete an order by ID
  */
 app.delete('/api/orders/:orderId', (req, res) => {
     try {
         const orderId = parseInt(req.params.orderId);
-        const orders = loadOrdersFromStorage();
         
-        if (orderId < 0 || orderId >= orders.length) {
-            return res.status(404).json({
-                success: false,
-                message: 'Order not found'
+        db.run('DELETE FROM orders WHERE id = ?', [orderId], function(err) {
+            if (err) {
+                return res.status(500).json({
+                    success: false,
+                    message: err.message
+                });
+            }
+            
+            if (this.changes === 0) {
+                return res.status(404).json({
+                    success: false,
+                    message: 'Order not found'
+                });
+            }
+            
+            // Fetch remaining orders to return
+            db.all('SELECT * FROM orders ORDER BY createdAt DESC', [], (err, rows) => {
+                res.json({
+                    success: true,
+                    message: 'Order deleted successfully',
+                    orders: rows || []
+                });
             });
-        }
-        
-        orders.splice(orderId, 1);
-        saveOrdersToStorage(orders);
-        
-        res.json({
-            success: true,
-            message: 'Order deleted successfully',
-            orders: orders
         });
     } catch (error) {
         res.status(400).json({
@@ -134,9 +173,24 @@ app.get('/health', (req, res) => {
 const PORT = process.env.PORT || 2502;
 const HOST = process.env.HOST || '0.0.0.0';
 
-app.listen(PORT, HOST, () => {
+const server = app.listen(PORT, HOST, () => {
     console.log(`Server is running on http://${HOST}:${PORT}`);
     console.log(`Health check: http://${HOST}:${PORT}/health`);
+});
+
+// Graceful shutdown
+process.on('SIGINT', () => {
+    console.log('Closing server...');
+    server.close(() => {
+        db.close((err) => {
+            if (err) {
+                console.error('Error closing database:', err);
+            } else {
+                console.log('Database closed');
+            }
+            process.exit(0);
+        });
+    });
 });
 
 module.exports = app;
