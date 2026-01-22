@@ -244,6 +244,9 @@ const menuData = [
     }
 ];
 
+// API Configuration
+const API_BASE_URL = 'http://localhost:2502/api';
+
 let cart = [];
 let currentSelectedProduct = null;
 
@@ -397,7 +400,7 @@ function removeFromCart(index) {
 }
 
 // Konfirmasi Pesanan (Table Input)
-document.getElementById('confirm-order-btn').addEventListener('click', () => {
+document.getElementById('confirm-order-btn').addEventListener('click', async () => {
     const tableNum = document.getElementById('table-number').value;
     const custName = document.getElementById('customer-name').value;
 
@@ -407,26 +410,40 @@ document.getElementById('confirm-order-btn').addEventListener('click', () => {
     }
 
     const orderData = {
-        orderId: "ORD-" + Math.floor(Math.random() * 10000),
-        table: tableNum,
-        customer: custName || "Guest",
-        items: cart,
-        total: cart.reduce((sum, item) => sum + item.price, 0),
-        status: "New Order",
-        timestamp: new Date().toLocaleString()
+        name: custName || `Guest - Table ${tableNum}`,
+        email: "customer@stacoffee.local",
+        phone: tableNum,
+        quantity: cart.length,
+        notes: `Meja: ${tableNum}\n\nItem Pesanan:\n` + cart.map(item => 
+            `- ${item.name} (Rp ${item.price.toLocaleString('id-ID')})\n  ${item.selectedOptions.join(', ')}`
+        ).join('\n')
     };
 
-    // Simpan data (Simulasi)
-    let allOrders = JSON.parse(localStorage.getItem('cafe_orders')) || [];
-    allOrders.push(orderData);
-    localStorage.setItem('cafe_orders', JSON.stringify(allOrders));
+    try {
+        const response = await fetch(`${API_BASE_URL}/orders`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(orderData)
+        });
 
-    alert(`Terima kasih! Pesanan untuk Meja ${tableNum} telah diterima.`);
-    cart = [];
-    updateCartUI();
-    closeModal('table-modal');
-    closeModal('cart-modal');
-    document.getElementById('table-number').value = '';
+        const data = await response.json();
+
+        if (data.success) {
+            alert(`Terima kasih! Pesanan untuk Meja ${tableNum} telah diterima.`);
+            cart = [];
+            updateCartUI();
+            closeModal('table-modal');
+            closeModal('cart-modal');
+            document.getElementById('table-number').value = '';
+        } else {
+            alert('Gagal mengirim pesanan: ' + data.message);
+        }
+    } catch (error) {
+        console.error('Error sending order:', error);
+        alert('Gagal menghubungi server. Periksa koneksi!');
+    }
 });
 
 // Helper: Tutup Modal
